@@ -6,8 +6,21 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
 
+    for (let i = 0; i < 4; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    const timestamp = dayjs().toString(36);
+    result += timestamp;
+
+    return result; 
 }
+
+const uniqueId = generateTaskId();
+console.log(uniqueId);
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
