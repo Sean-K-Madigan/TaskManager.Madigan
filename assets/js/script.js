@@ -1,4 +1,6 @@
 const addBtn = document.getElementById('addBtn')
+const toDoEl = $('#to-do')
+toDoEl.droppable();
 
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
@@ -7,16 +9,16 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
+    let projectId = '';
 
-    for (let i = 0; i < 4; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    for (let i = 0; i < 3 ; i++) {
+     projectId += characters.charAt(Math.floor(Math.random() * characters.length));
     }
 
     const timestamp = dayjs().toString(36);
-    result += timestamp;
+    projectId += timestamp;
 
-    return result; 
+    return projectId;
 }
 
 const uniqueId = generateTaskId();
@@ -27,18 +29,25 @@ function createTaskCard(task) {
 
     const taskCard = $('<div>')
         .addClass('card project-card draggable my-3')
-        .attr('data-project-id', project.id);
+        .attr('data-project-id', task.id);
 
-    const taskHeader = $('<div>').addClass('card-header h4').text(project.name);
+    const taskHeader = $('<div>').addClass('card-header h4').text(task.name);
     const taskBody = $('<div>').addClass('card-body');
-    const taskDescription = $('<p>').addClass('card-text').text(project.type);
-    const taskDueDate = $('<p>').addClass('card-text').text(project.dueDate);
+    const taskDescription = $('<p>').addClass('card-text').text(task.type);
+    const taskDueDate = $('<p>').addClass('card-text').text(task.dueDate);
     const deleteBtn = $('<button>')
         .addClass('btn btn-danger delete')
         .text('Delete')
-        .attr('data-project-id', project.id)
+        .attr('data-project-id', task.id);
     
-    cardDeleteBtn.on('click', handleDeleteTask);
+    deleteBtn.on('click', handleDeleteTask);
+
+    taskCard.append(taskHeader);
+    taskCard.append(taskBody);
+    taskCard.append(taskDescription);
+    taskCard.append(taskDueDate);
+    taskCard.append(deleteBtn);
+    toDoEl.append(taskCard);
     }
 
 // Todo: create a function to render the task list and make cards draggable
