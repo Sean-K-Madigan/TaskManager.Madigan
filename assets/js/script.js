@@ -1,6 +1,7 @@
-const addBtn = document.getElementById('addBtn');
+const addBtnWindow = document.getElementById('addBtnWindow');
 const formModal = document.getElementById('formModal');
-const closeBtn = document.querySelector('.close');
+const addBtnModal = document.getElementById('addBtnModal')
+const closeBtn = document.getElementById('closeBtn');
 
 
 // Retrieve tasks and nextId from localStorage
@@ -73,7 +74,7 @@ function handleAddTask(){
     formModal.style.display = 'block';
 };
 
-addBtn.addEventListener('click', handleAddTask);
+addBtnWindow.addEventListener('click', handleAddTask);
 
 function closeModal() {
     formModal.style.display = 'none';

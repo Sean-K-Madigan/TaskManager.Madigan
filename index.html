@@ -23,14 +23,13 @@
 
     <div class="container">
         <div class="text-center mb-5">
-            <button id="addBtn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add
+            <button id="addBtnWindow" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add
                 Task</button>
         </div>
 
         <!-- Todo: Create a modal with a form to add tasks -->
-        <div id="formModal" class="modal modal-dialog modal-dialog-centered modal-custom">
+        <div id="formModal" class="modal modal-dialog modal-custom">
             <div class="modal-content">
-                <span class="close">&times;</span>
                 <div class="row">
                     <h2 class="h4 card-header custom-card-header">New Task Details</h2>
                     <form id="project-form">
@@ -74,7 +73,8 @@
                         </li>
                     </ul>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-custom">
+                        <button type="button" id="closeBtn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="addBtnModal" class="btn btn-add-custom btn-success">
                         Add Task
                         </button>
                         </div>
