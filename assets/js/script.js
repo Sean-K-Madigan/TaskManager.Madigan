@@ -1,6 +1,7 @@
-const addBtn = document.getElementById('addBtn')
-const toDoEl = $('#to-do')
-toDoEl.droppable();
+const addBtn = document.getElementById('addBtn');
+const formModal = document.getElementById('formModal');
+const closeBtn = document.querySelector('.close');
+
 
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
@@ -28,7 +29,7 @@ console.log(uniqueId);
 function createTaskCard(task) {
 
     const taskCard = $('<div>')
-        .addClass('card project-card draggable my-3')
+        .addClass('card project-card draggable my-3 task-card')
         .attr('data-project-id', task.id);
 
     const taskHeader = $('<div>').addClass('card-header h4').text(task.name);
@@ -41,6 +42,18 @@ function createTaskCard(task) {
         .attr('data-project-id', task.id);
     
     deleteBtn.on('click', handleDeleteTask);
+
+    if (project.dueDate && project.status !== 'done') {
+        const now = dayjs();
+        const taskDueDate = dayjs(project.dueDate, 'DD/MM/YYYY');
+    
+        if (now.isSame(taskDueDate, 'day')) {
+        taskCard.addClass('bg-warning text-white');
+        } else if (now.isAfter(taskDueDate)) {
+        taskCard.addClass('bg-danger text-white');
+        cardDeleteBtn.addClass('border-light');
+        }
+    }
 
     taskCard.append(taskHeader);
     taskCard.append(taskBody);
@@ -56,15 +69,28 @@ function renderTaskList() {
 }
 
 // Todo: create a function to handle adding a new task
-function handleAddTask(event){
+function handleAddTask(){
+    formModal.style.display = 'block';
+};
 
-}
+addBtn.addEventListener('click', handleAddTask);
 
-addBtn.addEventListener('click', handleAddTask)
+function closeModal() {
+    formModal.style.display = 'none';
+};
+
+closeBtn.addEventListener('click', closeModal);
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
+    const projectId = $(this).attr('<insert yours>');
+    const projects = readProjectsFromStorage();
 
+    projects.forEach((project) => {
+    if (project.id === projectId) {
+    projects.splice(projects.indexOf(project), 1);
+    }
+});
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
