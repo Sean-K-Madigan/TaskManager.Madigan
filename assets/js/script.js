@@ -1,11 +1,11 @@
 const addBtnWindow = document.getElementById('addBtnWindow');
-const formModal = document.getElementById('formModal');
+const formModal = $('#formModal');
 const addBtnModal = document.getElementById('addBtnModal')
 const closeBtn = document.getElementById('closeBtn');
 
-const toDoEl = document.getElementById('todo-cards');
-const inProgEl = document.getElementById('in-progress-cards');
-const doneEl = document.getElementById('done-cards');
+const toDoEl = $('#todo-cards');
+const inProgEl = $('#in-progress-cards');
+const doneEl = $('#done-cards');
 
 
 
@@ -29,12 +29,10 @@ function generateTaskId() {
 }
 
 const uniqueId = generateTaskId();
-console.log(uniqueId);
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-    console.log('create card');
-
+    
     const taskCard = $(`<div>`)
         .addClass('card project-card draggable my-3 task-card')
         .attr('data-project-id', task.id);
@@ -62,14 +60,15 @@ function createTaskCard(task) {
         }
     }
 
-    
     taskCard.append(taskHeader);
     taskCard.append(taskBody);
     taskCard.append(taskDescription);
     taskCard.append(taskDueDate);
     taskCard.append(deleteBtn);
 
-    return taskCard;
+    toDoEl.append(taskCard);
+
+    console.log(taskCard, toDoEl);
 
 }
 
@@ -99,18 +98,18 @@ function handleAddTask(){
     // push new object to array.
     //save array to storage
     // re render
-    formModal.style.display = 'block';
 
     $('#task-form').on('submit', function (event) {
         event.preventDefault();
-
 
         console.log('Submit');
 
         const taskName = $('#task-name-input').val();
         const taskType = $('#task-type-input').val();
         const dueDate = $('#taskDueDate').val();
-
+        
+        closeModal();
+        
         console.log(taskName, taskType, dueDate);
         const task = {
             id: generateTaskId(),
@@ -118,10 +117,9 @@ function handleAddTask(){
             type: taskType,
             dueDate: dueDate,
         };
-
+        
         createTaskCard(task);
 
-        closeModal();
     })
 
 };
@@ -129,7 +127,7 @@ function handleAddTask(){
 addBtnModal.addEventListener('click', handleAddTask);
 
 function closeModal() {
-    formModal.style.display = 'none';
+    console.log('modal close');
 
     $('#task-name-input').val('');
     $('#task-type-input').val('');
@@ -152,6 +150,9 @@ function handleDeleteTask(event){
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+// make cards draggable jqueryUI read docs
+// delete origin card
+// create clone in new parent
 
 }
 
