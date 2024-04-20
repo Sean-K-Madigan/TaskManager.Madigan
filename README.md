@@ -52,9 +52,13 @@ Demonstrates my ability to effectively employ applications that rely on Web-API'
 
 Please refer to the LICENSE in the repo.
 
+## Live Link
+
+https://sean-k-madigan.github.io/TaskManager.Madigan/
+
 ## Screenshot of application
 
-
+![Application Screenshot](<./assets/images/Screenshot 2024-04-20 163636.png>)
 
 ## Mock-Up
 
