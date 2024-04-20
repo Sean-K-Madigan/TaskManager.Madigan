@@ -26,9 +26,7 @@ function generateTaskId() {
     taskId += timestamp;
 
     return taskId;
-}
-
-const uniqueId = generateTaskId();
+} 
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
@@ -86,10 +84,18 @@ function renderTaskList() {
         taskList.appendChild(taskCard);
     })
 
-    $('.task-card').draggable();
+    $('.draggable').draggable({
+        containment: '#todo-cards'
+    });
 
     return tasks;
 }
+
+$(document).ready(function() {
+    $(".draggable").draggable({
+        containment: "#todo-cards"
+    });
+});
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(){
